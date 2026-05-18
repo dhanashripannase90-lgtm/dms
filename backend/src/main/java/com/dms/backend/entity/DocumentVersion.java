@@ -28,6 +28,10 @@ public class DocumentVersion {
     @Column(nullable = false)
     private String filePath;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] fileData;
+
     @Column(nullable = false)
     private String fileName;
 

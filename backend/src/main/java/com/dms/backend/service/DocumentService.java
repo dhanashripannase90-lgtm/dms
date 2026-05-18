@@ -41,9 +41,6 @@ public class DocumentService {
 
     private static final long MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-    @Value("${app.upload.dir}")
-    private String uploadDir;
-
     private final DocumentRepository documentRepository;
     private final UserRepository userRepository;
     private final FolderRepository folderRepository;
@@ -56,7 +53,12 @@ public class DocumentService {
         validateFile(file);
         User user = getUserByEmail(currentEmail);
 
-        String storedPath = saveFile(file);
+        byte[] fileBytes;
+        try {
+            fileBytes = file.getBytes();
+        } catch (IOException e) {
+            throw new BadRequestException("Could not read file bytes");
+        }
 
         Folder folder = null;
         if (folderId != null) {
@@ -72,7 +74,8 @@ public class DocumentService {
                 .fileType(file.getContentType())
                 .category(category)
                 .description(description)
-                .filePath(storedPath)
+                .filePath("DB_STORED")
+                .fileData(fileBytes)
                 .uploadedBy(user)
                 .uploadDate(LocalDateTime.now())
                 .status(status)
@@ -181,6 +184,7 @@ public class DocumentService {
                 .document(document)
                 .versionNumber(nextVersion)
                 .filePath(document.getFilePath())
+                .fileData(document.getFileData())
                 .fileName(document.getFileName())
                 .fileType(document.getFileType())
                 .uploadedBy(getUserByEmail(currentEmail))
@@ -188,13 +192,18 @@ public class DocumentService {
                 .build();
         versionRepository.save(version);
 
-        // Replace with new file
-        deleteFileQuietly(document.getFilePath());
-        String storedPath = saveFile(file);
+        // Replace with new file bytes
+        byte[] fileBytes;
+        try {
+            fileBytes = file.getBytes();
+        } catch (IOException e) {
+            throw new BadRequestException("Could not read file bytes");
+        }
 
         document.setFileName(file.getOriginalFilename());
         document.setFileType(file.getContentType());
-        document.setFilePath(storedPath);
+        document.setFileData(fileBytes);
+        document.setFilePath("DB_STORED");
         document.setUploadDate(LocalDateTime.now());
         // Reset to PENDING unless admin
         User user = getUserByEmail(currentEmail);
@@ -239,24 +248,17 @@ public class DocumentService {
     public void deleteDocument(Long id, String currentEmail) {
         Document document = getDocumentWithPermission(id, currentEmail, false);
         String name = document.getFileName();
-        deleteFileQuietly(document.getFilePath());
         documentRepository.delete(document);
         auditLogService.log("DELETE", currentEmail, id, name, "Document deleted");
     }
 
     public Resource downloadDocument(Long id, String currentEmail) {
         Document document = getDocumentWithPermission(id, currentEmail, false);
-        try {
-            Path path = Paths.get(document.getFilePath()).toAbsolutePath().normalize();
-            Resource resource = new UrlResource(path.toUri());
-            if (!resource.exists()) {
-                throw new ResourceNotFoundException("File not found on disk");
-            }
-            auditLogService.log("DOWNLOAD", currentEmail, id, document.getFileName(), "File downloaded");
-            return resource;
-        } catch (IOException ex) {
-            throw new BadRequestException("Could not load file");
+        if (document.getFileData() == null) {
+            throw new ResourceNotFoundException("File data not found in database");
         }
+        auditLogService.log("DOWNLOAD", currentEmail, id, document.getFileName(), "File downloaded");
+        return new org.springframework.core.io.ByteArrayResource(document.getFileData());
     }
 
     public Document getDocumentById(Long id) {
@@ -305,26 +307,7 @@ public class DocumentService {
         }
     }
 
-    private String saveFile(MultipartFile file) {
-        try {
-            Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
-            Files.createDirectories(uploadPath);
-            String originalName = file.getOriginalFilename() == null ? "file" : file.getOriginalFilename();
-            String filename = UUID.randomUUID() + "_" + originalName.replaceAll("\\s+", "_");
-            Path targetPath = uploadPath.resolve(filename);
-            Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-            return targetPath.toString();
-        } catch (IOException ex) {
-            throw new BadRequestException("Could not store file");
-        }
-    }
 
-    private void deleteFileQuietly(String filePath) {
-        try {
-            Files.deleteIfExists(Paths.get(filePath));
-        } catch (IOException ignored) {
-        }
-    }
 
     public DocumentResponse toResponse(Document document) {
         List<TagResponse> tags = document.getTags() != null

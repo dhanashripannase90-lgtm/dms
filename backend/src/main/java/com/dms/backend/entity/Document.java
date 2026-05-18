@@ -37,6 +37,10 @@ public class Document {
     @Column(nullable = false)
     private String filePath;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] fileData;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploaded_by", nullable = false)
     private User uploadedBy;
