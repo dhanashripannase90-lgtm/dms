@@ -3,9 +3,18 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { deleteDocument, downloadDocument, getMyDocuments } from "../services/api";
 import { getAuthData } from "../utils/auth";
+import { 
+  FolderIcon, 
+  DollarIcon, 
+  ScaleIcon, 
+  UserIcon, 
+  PlusIcon, 
+  InboxEmptyIcon, 
+  FileIcon 
+} from "../components/Icons";
 
 const CAT_BADGE = { GENERAL: "badge-gray", FINANCE: "badge-green", LEGAL: "badge-amber", HR: "badge-cyan" };
-const CAT_ICON = { GENERAL: "📁", FINANCE: "💰", LEGAL: "⚖️", HR: "👤" };
+
 const STATUS_STYLE = {
   APPROVED: { background: "rgba(16,185,129,0.15)", color: "#10b981" },
   PENDING:  { background: "rgba(245,158,11,0.15)", color: "#f59e0b" },
@@ -17,6 +26,16 @@ function UserDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const auth = getAuthData();
+
+  // Premium category color-coded icons
+  const getCatIcon = (cat) => {
+    switch (cat) {
+      case "FINANCE": return <DollarIcon size={20} color="#10b981" />;
+      case "LEGAL": return <ScaleIcon size={20} color="#f59e0b" />;
+      case "HR": return <UserIcon size={20} color="#06b6d4" />;
+      default: return <FolderIcon size={20} color="var(--violet)" />;
+    }
+  };
 
   const load = async () => {
     try { const { data } = await getMyDocuments(); setDocs(data || []); }
@@ -52,11 +71,14 @@ function UserDashboardPage() {
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "2rem", marginBottom: "3rem" }}>
           <div>
-            <h1 className="page-title" style={{ fontSize: "2.5rem", fontWeight: 800 }}>{greet()}, {auth?.name?.split(" ")[0] || "User"} ✨</h1>
+            <h1 className="page-title" style={{ fontSize: "2.5rem", fontWeight: 800 }}>
+              {greet()}, {auth?.name?.split(" ")[0] || "User"}{" "}
+              <span style={{ fontSize: "1.8rem", verticalAlign: "middle", animation: "wave 2s infinite" }}>👋</span>
+            </h1>
             <p className="page-subtitle">Your personalized document repository.</p>
           </div>
-          <Link to="/upload" className="btn-premium" style={{ textDecoration: "none" }}>
-            <span>➕</span> New Upload
+          <Link to="/upload" className="btn-premium" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+            <PlusIcon size={18} /> New Upload
           </Link>
         </div>
 
@@ -81,7 +103,9 @@ function UserDashboardPage() {
               <p className="stat-label">{cat}</p>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
                 <p className="stat-value" style={{ fontSize: "1.8rem" }}>{loading ? "—" : docs.filter(d => d.category === cat).length}</p>
-                <span style={{ fontSize: "1.5rem" }}>{CAT_ICON[cat]}</span>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", background: "var(--bg-input)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+                  {getCatIcon(cat)}
+                </div>
               </div>
             </div>
           ))}
@@ -98,8 +122,10 @@ function UserDashboardPage() {
               {[1, 2, 3, 4].map(i => <div key={i} className="sk" style={{ height: "3.5rem" }} />)}
             </div>
           ) : docs.length === 0 ? (
-            <div style={{ padding: "5rem", textAlign: "center" }}>
-              <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>📭</div>
+            <div style={{ padding: "5rem", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ color: "var(--text-muted)", marginBottom: "1.5rem" }}>
+                <InboxEmptyIcon size={64} />
+              </div>
               <p style={{ color: "var(--text-secondary)", fontSize: "1.2rem", marginBottom: "2rem" }}>Your vault is currently empty.</p>
               <Link to="/upload" className="btn-gold" style={{ textDecoration: "none" }}>Upload Your First File</Link>
             </div>
@@ -118,7 +144,10 @@ function UserDashboardPage() {
                     <tr key={d.id}>
                       <td style={{ fontWeight: 600 }}>
                         <span style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                          <span style={{ fontSize: "1.3rem" }}>📄</span>{d.fileName}
+                          <span style={{ color: "var(--violet)" }}>
+                            <FileIcon size={20} />
+                          </span>
+                          {d.fileName}
                         </span>
                       </td>
                       <td><span className={`badge ${CAT_BADGE[d.category] || "badge-gray"}`}>{d.category}</span></td>

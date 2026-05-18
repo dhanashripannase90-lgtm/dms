@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { getDashboardStats, getDocuments } from "../services/api";
+import { 
+  UserGroupIcon, 
+  FileIcon, 
+  ClockIcon, 
+  CheckIcon, 
+  XIcon, 
+  ChartIcon, 
+  TagIcon, 
+  UploadIcon 
+} from "../components/Icons";
 
 const CAT_BADGE = { GENERAL: "badge-gray", FINANCE: "badge-green", LEGAL: "badge-amber", HR: "badge-cyan" };
 
@@ -23,11 +33,11 @@ function AdminDashboardPage() {
   }, []);
 
   const statCards = stats ? [
-    { label: "Total Users", value: stats.totalUsers ?? 0, icon: "👥", color: "var(--violet)", link: "/admin/users" },
-    { label: "Total Documents", value: stats.totalDocuments ?? 0, icon: "📄", color: "var(--cyan)", link: "/documents" },
-    { label: "Pending Approval", value: stats.pendingDocuments ?? 0, icon: "⏳", color: "#f59e0b", link: "/admin/approval" },
-    { label: "Approved", value: stats.approvedDocuments ?? 0, icon: "✅", color: "#10b981", link: "/documents" },
-    { label: "Rejected", value: stats.rejectedDocuments ?? 0, icon: "❌", color: "#ef4444", link: "/documents" },
+    { label: "Total Users", value: stats.totalUsers ?? 0, icon: <UserGroupIcon size={28} color="var(--violet)" />, color: "var(--violet)", link: "/admin/users" },
+    { label: "Total Documents", value: stats.totalDocuments ?? 0, icon: <FileIcon size={28} color="var(--cyan)" />, color: "var(--cyan)", link: "/documents" },
+    { label: "Pending Approval", value: stats.pendingDocuments ?? 0, icon: <ClockIcon size={28} color="#f59e0b" />, color: "#f59e0b", link: "/admin/approval" },
+    { label: "Approved", value: stats.approvedDocuments ?? 0, icon: <CheckIcon size={28} color="#10b981" />, color: "#10b981", link: "/documents" },
+    { label: "Rejected", value: stats.rejectedDocuments ?? 0, icon: <XIcon size={28} color="#ef4444" />, color: "#ef4444", link: "/documents" },
   ] : [];
 
   return (
@@ -44,17 +54,18 @@ function AdminDashboardPage() {
         {/* Quick Links */}
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
           {[
-            { to: "/admin/approval", label: "⏳ Approval Queue", color: "#f59e0b" },
-            { to: "/admin/users", label: "👥 User Management", color: "var(--violet)" },
-            { to: "/admin/audit-logs", label: "📊 Audit Logs", color: "var(--cyan)" },
-            { to: "/admin/tags", label: "🏷️ Tag Management", color: "var(--gold)" },
-            { to: "/upload", label: "⬆️ Upload Document", color: "#10b981" },
+            { to: "/admin/approval", label: "Approval Queue", icon: <ClockIcon size={16} />, color: "#f59e0b" },
+            { to: "/admin/users", label: "User Management", icon: <UserGroupIcon size={16} />, color: "var(--violet)" },
+            { to: "/admin/audit-logs", label: "Audit Logs", icon: <ChartIcon size={16} />, color: "var(--cyan)" },
+            { to: "/admin/tags", label: "Tag Management", icon: <TagIcon size={16} />, color: "var(--gold)" },
+            { to: "/upload", label: "Upload Document", icon: <UploadIcon size={16} />, color: "#10b981" },
           ].map(l => (
             <Link key={l.to} to={l.to} style={{
               padding: "0.6rem 1.4rem", borderRadius: "50px", textDecoration: "none",
               background: l.color + "22", color: l.color, border: `1px solid ${l.color}44`,
-              fontWeight: 600, fontSize: "0.9rem", transition: "all 0.2s ease"
-            }}>{l.label}</Link>
+              fontWeight: 600, fontSize: "0.9rem", transition: "all 0.2s ease",
+              display: "inline-flex", alignItems: "center", gap: "0.5rem"
+            }}>{l.icon}{l.label}</Link>
           ))}
         </div>
 
@@ -70,13 +81,15 @@ function AdminDashboardPage() {
                     <p className="stat-label">{card.label}</p>
                     <p className="stat-value" style={{ fontSize: "2.5rem", color: card.color }}>{card.value}</p>
                   </div>
-                  <div style={{ fontSize: "2.5rem" }}>{card.icon}</div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", background: "var(--bg-input)", borderRadius: "10px", border: "1px solid var(--border)" }}>
+                    {card.icon}
+                  </div>
                 </div>
               </div>
             </Link>
           ))}
           {!loading && stats && (
-            <div className="stat-card-premium" style={{ border: "1px solid var(--gold-glow)" }}>
+            <div className="stat-card-premium" style={{ border: "1px solid var(--gold-glow)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <p className="stat-label" style={{ marginBottom: "1rem" }}>By Category</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
                 {Object.entries(stats.documentsByCategory || {}).map(([k, v]) => (
@@ -116,7 +129,10 @@ function AdminDashboardPage() {
                     <tr key={d.id}>
                       <td style={{ fontWeight: 600 }}>
                         <span style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                          <span style={{ fontSize: "1.3rem" }}>📄</span>{d.fileName}
+                          <span style={{ color: "var(--cyan)" }}>
+                            <FileIcon size={20} />
+                          </span>
+                          {d.fileName}
                         </span>
                       </td>
                       <td><span className={`badge ${CAT_BADGE[d.category] || "badge-gray"}`}>{d.category}</span></td>
