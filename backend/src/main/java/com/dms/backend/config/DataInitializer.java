@@ -17,8 +17,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userRepository.findByEmail("admin@example.com").isEmpty()) {
-            User admin = User.builder()
+        User admin = userRepository.findByEmail("admin@example.com").orElse(null);
+        if (admin == null) {
+            admin = User.builder()
                     .name("Main Admin")
                     .email("admin@example.com")
                     .password(passwordEncoder.encode("admin123"))
@@ -26,6 +27,11 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
             userRepository.save(admin);
             System.out.println(">>> Seeded Admin Account: admin@example.com / admin123");
+        } else {
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setRole(Role.ADMIN);
+            userRepository.save(admin);
+            System.out.println(">>> Verified/Reset Admin Account: admin@example.com / admin123");
         }
     }
 }
