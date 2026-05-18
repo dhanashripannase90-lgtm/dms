@@ -4,6 +4,63 @@ import { register, requestOtp } from "../services/api";
 import { saveAuthData } from "../utils/auth";
 import { useTheme } from "../context/ThemeContext";
 
+// Pixel-perfect, modern Lucide SVG Icons matching the premium theme
+const UserIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const MailIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <rect width="20" height="16" x="2" y="4" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
+
+const LockIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+);
+
+const KeyIcon = ({ size = 16, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4" />
+  </svg>
+);
+
+const EyeIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const EyeOffIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+    <path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+    <line x1="2" x2="22" y1="2" y2="22" />
+  </svg>
+);
+
+const SunIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+  </svg>
+);
+
+const MoonIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+  </svg>
+);
+
 function RegisterPage() {
   const navigate = useNavigate();
   const { theme, toggle } = useTheme();
@@ -61,9 +118,9 @@ function RegisterPage() {
       </div>
 
       <button className="theme-btn" onClick={toggle}
-        style={{ position: "absolute", top: "2rem", right: "2rem", zIndex: 100, border: "none", background: "none", fontSize: "1.5rem" }}
+        style={{ position: "absolute", top: "2rem", right: "2rem", zIndex: 100, border: "none", background: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
         aria-label="Toggle theme">
-        {theme === "dark" ? "🌙" : "☀️"}
+        {theme === "dark" ? <SunIcon color="var(--violet)" size={24} /> : <MoonIcon color="var(--violet)" size={24} />}
       </button>
 
       <div className="glass-panel animate-slide-up" style={{ width: "100%", maxWidth: "500px", padding: "3rem", position: "relative", zIndex: 10 }}>
@@ -82,28 +139,43 @@ function RegisterPage() {
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
           <div>
             <label className="field-label" style={{ marginLeft: "0.5rem" }}>Full Name</label>
-            <input className="input-premium" type="text" placeholder="Dishu Pannase"
-              required value={form.name} onChange={set("name")} />
+            <div style={{ position: "relative" }}>
+              <span style={{ position: "absolute", left: "1.2rem", top: "50%", transform: "translateY(-50%)", display: "flex", alignItems: "center", color: "var(--text-muted)" }}>
+                <UserIcon size={16} />
+              </span>
+              <input className="input-premium" type="text" placeholder="Dishu Pannase"
+                required value={form.name} onChange={set("name")} style={{ paddingLeft: "3rem" }} />
+            </div>
           </div>
+          
           <div>
             <label className="field-label" style={{ marginLeft: "0.5rem" }}>Email Address</label>
-            <input className="input-premium" type="email" placeholder="name@company.com"
-              required value={form.email} onChange={set("email")} />
+            <div style={{ position: "relative" }}>
+              <span style={{ position: "absolute", left: "1.2rem", top: "50%", transform: "translateY(-50%)", display: "flex", alignItems: "center", color: "var(--text-muted)" }}>
+                <MailIcon size={16} />
+              </span>
+              <input className="input-premium" type="email" placeholder="name@company.com"
+                required value={form.email} onChange={set("email")} style={{ paddingLeft: "3rem" }} />
+            </div>
           </div>
+          
           <div>
             <label className="field-label" style={{ marginLeft: "0.5rem" }}>Password</label>
             <div style={{ position: "relative" }}>
+              <span style={{ position: "absolute", left: "1.2rem", top: "50%", transform: "translateY(-50%)", display: "flex", alignItems: "center", color: "var(--text-muted)" }}>
+                <KeyIcon size={16} />
+              </span>
               <input className="input-premium" type={showPw ? "text" : "password"}
                 placeholder="At least 6 characters" required minLength={6}
-                value={form.password} onChange={set("password")} style={{ paddingRight: "3.5rem" }} />
+                value={form.password} onChange={set("password")} style={{ paddingLeft: "3rem", paddingRight: "3.5rem" }} />
               <button type="button" onClick={() => setShowPw((p) => !p)}
-                style={{ position: "absolute", right: "1rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer" }}>
-                {showPw ? "🙈" : "👁️"}
+                style={{ position: "absolute", right: "1rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {showPw ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
               </button>
             </div>
             {pwStrength && (
               <div style={{ padding: "0.5rem 0.5rem 0", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <div style={{ flex: 1, height: "4px", background: "var(--border)", borderRadius: "10px", overflow: "hidden" }}>
+                <div style={{ flex: 1, height: "4px", background: "var(--border)", borderRadius: "100px", overflow: "hidden" }}>
                   <div style={{ width: pwStrength === "weak" ? "30%" : "100%", height: "100%", background: pwStrength === "weak" ? "#ef4444" : "#10b981", transition: "width 0.3s ease" }} />
                 </div>
                 <span style={{ fontSize: "0.7rem", fontWeight: 700, color: pwStrength === "weak" ? "#ef4444" : "#10b981" }}>
@@ -112,17 +184,24 @@ function RegisterPage() {
               </div>
             )}
           </div>
+          
           {otpSent && (
             <div className="animate-slide-up">
               <label className="field-label" style={{ marginLeft: "0.5rem" }}>Verification OTP</label>
-              <input className="input-premium" type="text" placeholder="Enter 6-digit OTP"
-                required value={form.otp} onChange={set("otp")} />
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "1.2rem", top: "50%", transform: "translateY(-50%)", display: "flex", alignItems: "center", color: "var(--text-muted)" }}>
+                  <LockIcon size={16} />
+                </span>
+                <input className="input-premium" type="text" placeholder="Enter 6-digit OTP"
+                  required value={form.otp} onChange={set("otp")} style={{ paddingLeft: "3rem" }} />
+              </div>
               <div style={{ marginTop: "0.5rem", fontSize: "0.8rem", color: "var(--text-muted)" }}>
                 OTP sent to {form.email}
               </div>
             </div>
           )}
-          <button className="btn-premium btn-full" type="submit" disabled={loading} style={{ padding: "1rem", fontSize: "1rem", marginTop: "1rem" }}>
+          
+          <button className="btn-premium btn-full" type="submit" disabled={loading} style={{ padding: "1rem", fontSize: "1rem", marginTop: "1rem", borderRadius: "100px" }}>
             {loading ? <><span className="spinner" /> {otpSent ? "Creating account..." : "Sending OTP..."}</> : (otpSent ? "Verify & Create Account →" : "Request OTP")}
           </button>
         </form>
