@@ -1,0 +1,47 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Build outputs
+dist/
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.classpath
+.project
+.settings/
+.factorypath
+nbproject/
+*.ipr
+*.iws
+*.iml
+
+# Local uploads and data
+backend/uploads/
+uploads/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Secrets and environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
