@@ -3,6 +3,34 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { clearAuthData, getAuthData } from "../utils/auth";
 import { useTheme } from "../context/ThemeContext";
 
+// Pixel-perfect, modern Lucide SVG Icons matching the premium theme
+const SunIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+  </svg>
+);
+
+const MoonIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+  </svg>
+);
+
+const LogoIcon = ({ size = 32 }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" style={{ filter: "drop-shadow(0 0 8px rgba(139, 92, 246, 0.5))", flexShrink: 0 }}>
+    <defs>
+      <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b5cf6" />
+        <stop offset="100%" stopColor="#06b6d4" />
+      </linearGradient>
+    </defs>
+    <path d="M12 2L2 7l10 5 10-5-10-5Z" fill="url(#logoGrad)" />
+    <path d="M2 17l10 5 10-5" stroke="url(#logoGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 12l10 5 10-5" stroke="url(#logoGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+  </svg>
+);
+
 function Navbar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -65,7 +93,7 @@ function Navbar() {
     <nav className="navbar-ghost">
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
         <Link to="/dashboard" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <div className="brand-icon" style={{ background: "linear-gradient(135deg, #6366f1, #a855f7)", fontSize: "1rem", fontWeight: 900 }}>DMS</div>
+          <LogoIcon size={32} />
           <span className="hide-on-mobile" style={{ fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.5px", color: "var(--text-primary)" }}>DMS Portal</span>
         </Link>
       </div>
@@ -75,8 +103,8 @@ function Navbar() {
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <button className="theme-btn hide-on-mobile" onClick={toggle} style={{ border: "none", background: "none", fontSize: "1.2rem", cursor: "pointer" }}>
-          {theme === "dark" ? "🌙" : "☀️"}
+        <button className="theme-btn hide-on-mobile" onClick={toggle} style={{ border: "none", background: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", padding: "0.3rem" }} aria-label="Toggle theme">
+          {theme === "dark" ? <SunIcon color="var(--violet)" size={18} /> : <MoonIcon color="var(--violet)" size={18} />}
         </button>
         <Link to="/profile" className="hide-on-mobile" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 1rem", background: "var(--bg-input)", borderRadius: "100px", border: "1px solid var(--border)", cursor: "pointer" }}>
           <div className="avatar" style={{ width: "28px", height: "28px", fontSize: "0.7rem" }}>{initials}</div>
@@ -90,8 +118,8 @@ function Navbar() {
         </button>
         
         {/* Mobile controls */}
-        <button className="mobile-menu-btn" onClick={toggle}>
-          {theme === "dark" ? "🌙" : "☀️"}
+        <button className="mobile-menu-btn" onClick={toggle} style={{ display: "flex", alignItems: "center", justifyContent: "center" }} aria-label="Toggle theme">
+          {theme === "dark" ? <SunIcon color="var(--violet)" size={20} /> : <MoonIcon color="var(--violet)" size={20} />}
         </button>
         <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? "✕" : "☰"}
