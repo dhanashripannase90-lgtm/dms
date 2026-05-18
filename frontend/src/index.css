@@ -680,7 +680,7 @@ textarea.input-premium {
   transform: translateX(-50%);
   width: 98%;
   height: 64px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(10, 10, 20, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.06);

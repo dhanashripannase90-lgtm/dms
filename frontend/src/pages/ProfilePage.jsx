@@ -44,7 +44,7 @@ function ProfilePage() {
   return (
     <div className="page-shell animate-fade" style={{ background: "radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, rgba(5, 5, 10, 0) 50%), var(--bg)" }}>
       <Navbar />
-      <div className="page-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "7.5rem 2rem 4rem" }}>
+      <div className="page-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "9rem 2rem 4rem" }}>
         
         {/* Page Header */}
         <div style={{ marginBottom: "3.5rem", textAlign: "center" }} className="animate-slide-up">
@@ -60,34 +60,37 @@ function ProfilePage() {
         {success && <div className="alert alert-success animate-fade" style={{ marginBottom: "2rem", boxShadow: "0 4px 20px rgba(16,185,129,0.15)" }}>✨ {success}</div>}
         {error && <div className="alert alert-error animate-fade" style={{ marginBottom: "2rem", boxShadow: "0 4px 20px rgba(239,68,68,0.15)" }}>⚠️ {error}</div>}
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 2fr", gap: "2.5rem", alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 2fr", gap: "2.5rem", alignItems: "stretch" }}>
           
           {/* LEFT COLUMN: PREMIUM USER CARD */}
-          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)" }}>
+          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between", border: "1px solid var(--border-strong)", height: "100%" }}>
             
             {/* Status indicator */}
-            <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "100px" }}>
+            <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "100px", zIndex: 10 }}>
               <span style={{ width: "8px", height: "8px", background: "#10b981", borderRadius: "50%", display: "inline-block", boxShadow: "0 0 8px #10b981" }} />
               <span style={{ fontSize: "0.75rem", color: "#10b981", fontWeight: 700, textTransform: "uppercase" }}>Online</span>
             </div>
 
-            {/* Glowing Avatar circle */}
-            <div style={{ position: "relative", marginBottom: "2rem", marginTop: "1rem" }}>
-              <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", opacity: 0.35, filter: "blur(8px)" }} />
-              <div style={{ width: "130px", height: "130px", fontSize: "3rem", background: "linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, position: "relative", border: "4px solid var(--bg-surface)", boxShadow: "0 10px 30px rgba(139, 92, 246, 0.4)" }}>
-                {initials}
+            {/* Avatar & Name container to keep them grouped at the top */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "1rem" }}>
+              {/* Glowing Avatar circle */}
+              <div style={{ position: "relative", marginBottom: "2rem" }}>
+                <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", opacity: 0.35, filter: "blur(8px)" }} />
+                <div style={{ width: "130px", height: "130px", fontSize: "3rem", background: "linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, position: "relative", border: "4px solid var(--bg-surface)", boxShadow: "0 10px 30px rgba(139, 92, 246, 0.4)" }}>
+                  {initials}
+                </div>
+              </div>
+
+              <div style={{ textAlign: "center", width: "100%", marginBottom: "2.5rem" }}>
+                <h3 style={{ fontSize: "1.45rem", fontWeight: 800, margin: "0 0 0.4rem 0", color: "var(--text-primary)" }}>{name}</h3>
+                <span className="badge badge-violet" style={{ fontSize: "0.75rem", padding: "0.35rem 1.2rem", border: "1px solid var(--violet-glow)", letterSpacing: "1.5px" }}>
+                  🔑 {auth?.role}
+                </span>
               </div>
             </div>
 
-            <div style={{ textAlign: "center", width: "100%", marginBottom: "2.5rem" }}>
-              <h3 style={{ fontSize: "1.45rem", fontWeight: 800, margin: "0 0 0.4rem 0", color: "var(--text-primary)" }}>{name}</h3>
-              <span className="badge badge-violet" style={{ fontSize: "0.75rem", padding: "0.35rem 1.2rem", border: "1px solid var(--violet-glow)", letterSpacing: "1.5px" }}>
-                🔑 {auth?.role}
-              </span>
-            </div>
-
-            {/* Account Details list */}
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)" }}>
+            {/* Account Details list at the bottom */}
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "auto" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 600 }}>ACCOUNT ID</span>
                 <span style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace" }}>#{auth?.id || "N/A"}</span>
