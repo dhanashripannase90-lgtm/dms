@@ -89,6 +89,7 @@ export const deleteTag = (id) => api.delete(`/tags/${id}`);
 export const getUsers = () => api.get("/users");
 export const deleteUser = (id) => api.delete(`/users/${id}`);
 export const updateUserRole = (id, role) => api.put(`/users/${id}/role`, { role });
+export const updateProfile = (payload) => api.put("/users/profile", payload);
 
 // ─── Dashboard ─────────────────────────────────────────────────────────
 export const getDashboardStats = () => api.get("/dashboard/stats");

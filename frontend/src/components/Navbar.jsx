@@ -34,6 +34,10 @@ function Navbar() {
         style={{ color: active("/upload") ? "var(--violet)" : "var(--text-secondary)", textDecoration: "none", fontWeight: 600 }}>
         Upload
       </Link>
+      <Link className={`nav-item${active("/profile")}`} to="/profile" onClick={() => setMenuOpen(false)}
+        style={{ color: active("/profile") ? "var(--violet)" : "var(--text-secondary)", textDecoration: "none", fontWeight: 600 }}>
+        Profile
+      </Link>
       {auth?.role === "ADMIN" && (
         <>
           <Link className={`nav-item${active("/admin/approval")}`} to="/admin/approval" onClick={() => setMenuOpen(false)}
@@ -74,13 +78,13 @@ function Navbar() {
         <button className="theme-btn hide-on-mobile" onClick={toggle} style={{ border: "none", background: "none", fontSize: "1.2rem", cursor: "pointer" }}>
           {theme === "dark" ? "🌙" : "☀️"}
         </button>
-        <div className="hide-on-mobile" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 1rem", background: "var(--bg-input)", borderRadius: "100px", border: "1px solid var(--border)" }}>
+        <Link to="/profile" className="hide-on-mobile" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 1rem", background: "var(--bg-input)", borderRadius: "100px", border: "1px solid var(--border)", cursor: "pointer" }}>
           <div className="avatar" style={{ width: "28px", height: "28px", fontSize: "0.7rem" }}>{initials}</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)" }}>{auth?.name?.split(" ")[0]}</span>
             <span style={{ fontSize: "0.6rem", color: "var(--text-muted)", textTransform: "uppercase" }}>{auth?.role}</span>
           </div>
-        </div>
+        </Link>
         <button className="btn btn-secondary btn-sm hide-on-mobile" onClick={logout} style={{ borderRadius: "50px", border: "1px solid var(--border)" }}>
           Logout
         </button>
@@ -98,13 +102,13 @@ function Navbar() {
         <div className="mobile-nav-menu animate-fade">
           <NavLinks />
           <div style={{ marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid var(--border)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+            <Link to="/profile" onClick={() => setMenuOpen(false)} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
               <div className="avatar" style={{ width: "28px", height: "28px", fontSize: "0.7rem" }}>{initials}</div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)" }}>{auth?.name}</span>
                 <span style={{ fontSize: "0.6rem", color: "var(--text-muted)", textTransform: "uppercase" }}>{auth?.role}</span>
               </div>
-            </div>
+            </Link>
             <button className="btn btn-secondary btn-full" onClick={logout} style={{ borderRadius: "50px", border: "1px solid var(--border)" }}>
               Logout
             </button>

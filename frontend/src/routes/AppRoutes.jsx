@@ -12,6 +12,7 @@ import FoldersPage from "../pages/FoldersPage";
 import ApprovalQueuePage from "../pages/ApprovalQueuePage";
 import AuditLogPage from "../pages/AuditLogPage";
 import TagManagementPage from "../pages/TagManagementPage";
+import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import { getRole, isAuthenticated } from "../utils/auth";
 
@@ -31,6 +32,7 @@ function AppRoutes() {
       <Route path="/upload" element={<ProtectedRoute><UploadPage /></ProtectedRoute>} />
       <Route path="/documents" element={<ProtectedRoute><DocumentsPage /></ProtectedRoute>} />
       <Route path="/folders" element={<ProtectedRoute><FoldersPage /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/admin/users" element={<ProtectedRoute roles={["ADMIN"]}><UserManagementPage /></ProtectedRoute>} />
       <Route path="/admin/approval" element={<ProtectedRoute roles={["ADMIN"]}><ApprovalQueuePage /></ProtectedRoute>} />
       <Route path="/admin/tags" element={<ProtectedRoute roles={["ADMIN"]}><TagManagementPage /></ProtectedRoute>} />
