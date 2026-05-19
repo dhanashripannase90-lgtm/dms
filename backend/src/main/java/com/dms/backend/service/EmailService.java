@@ -11,8 +11,8 @@ import java.time.Year;
 @Service
 public class EmailService {
 
-    @Value("${app.resend.api-key}")
-    private String resendApiKey;
+    @Value("${app.brevo.api-key}")
+    private String brevoApiKey;
 
     public void sendOtpEmail(String to, String otp, String purpose) {
         String subject;
@@ -65,14 +65,16 @@ public class EmailService {
         }
 
         try {
-            if (resendApiKey == null || resendApiKey.trim().isEmpty()) {
-                System.err.println("RESEND_API_KEY is missing! Cannot send email to " + to);
+            if (brevoApiKey == null || brevoApiKey.trim().isEmpty()) {
+                System.err.println("BREVO_API_KEY is missing! Cannot send email to " + to);
                 return;
             }
 
-            // Must use onboarding@resend.dev unless a custom domain is verified in Resend.
+            // Using Brevo's v3 API
             String jsonPayload = String.format(
-                    "{\"from\": \"DMS Portal <onboarding@resend.dev>\", \"to\": [\"%s\"], \"subject\": \"%s\", \"html\": \"%s\"}",
+                    "{\"sender\": {\"name\": \"DMS Portal\", \"email\": \"dhanashripannase90@gmail.com\"}, " +
+                    "\"to\": [{\"email\": \"%s\"}], " +
+                    "\"subject\": \"%s\", \"htmlContent\": \"%s\"}",
                     to,
                     subject,
                     content.replace("\"", "\\\"").replace("\n", "") // Escape quotes and newlines for JSON payload
@@ -80,19 +82,20 @@ public class EmailService {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.resend.com/emails"))
-                    .header("Authorization", "Bearer " + resendApiKey)
+                    .uri(URI.create("https://api.brevo.com/v3/smtp/email"))
+                    .header("api-key", brevoApiKey)
                     .header("Content-Type", "application/json")
+                    .header("accept", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
                     .build();
 
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-            System.out.println("Resend API Response Status: " + response.statusCode());
-            System.out.println("Resend API Response Body: " + response.body());
+            System.out.println("Brevo API Response Status: " + response.statusCode());
+            System.out.println("Brevo API Response Body: " + response.body());
 
             if (response.statusCode() >= 400) {
-                System.err.println("Failed to send email via Resend: " + response.body());
+                System.err.println("Failed to send email via Brevo: " + response.body());
             }
 
         } catch (Exception e) {
