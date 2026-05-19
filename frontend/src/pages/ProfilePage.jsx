@@ -118,7 +118,7 @@ function ProfilePage() {
         {success && <div className="alert alert-success animate-fade" style={{ marginBottom: "2rem", boxShadow: "0 4px 20px rgba(16,185,129,0.15)" }}>✨ {success}</div>}
         {error && <div className="alert alert-error animate-fade" style={{ marginBottom: "2rem", boxShadow: "0 4px 20px rgba(239,68,68,0.15)" }}>⚠️ {error}</div>}
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 2fr", gap: "2.5rem", alignItems: "stretch" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "2.5rem", alignItems: "stretch" }} className="profile-grid">
           
           {/* LEFT COLUMN: PREMIUM USER CARD */}
           <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between", border: "1px solid var(--border-strong)", height: "100%" }}>

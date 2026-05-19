@@ -945,3 +945,18 @@ textarea.input-premium {
     border-radius: 16px;
   }
 }
+
+/* Profile page responsive 2-column layout */
+.profile-grid {
+  grid-template-columns: 1.1fr 2fr !important;
+}
+
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .profile-grid .glass-panel form div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
