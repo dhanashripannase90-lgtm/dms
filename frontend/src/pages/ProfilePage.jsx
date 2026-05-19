@@ -149,17 +149,17 @@ function ProfilePage() {
 
             {/* Account Details list at the bottom */}
             <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "auto" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
-                <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 600, flexShrink: 0 }}>ACCOUNT ID</span>
-                <span style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>#{auth?.id || "N/A"}</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>ACCOUNT ID</span>
+                <span style={{ fontSize: "0.95rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace" }}>#{auth?.id || "N/A"}</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
-                <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 600, flexShrink: 0 }}>SYSTEM EMAIL</span>
-                <span style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={auth?.email}>{auth?.email}</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>SYSTEM EMAIL</span>
+                <span style={{ fontSize: "0.95rem", color: "var(--text-primary)", fontWeight: 700, wordBreak: "break-all" }}>{auth?.email}</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
-                <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 600, flexShrink: 0 }}>PRIVILEGES</span>
-                <span style={{ fontSize: "0.8rem", fontWeight: 700, padding: "0.2rem 0.6rem", background: auth?.role === "ADMIN" ? "rgba(234, 179, 8, 0.1)" : "rgba(6, 182, 212, 0.1)", color: auth?.role === "ADMIN" ? "var(--gold)" : "var(--cyan)", border: auth?.role === "ADMIN" ? "1px solid var(--gold-glow)" : "1px solid var(--cyan-glow)", borderRadius: "4px", flexShrink: 0 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", alignItems: "flex-start" }}>
+                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>PRIVILEGES</span>
+                <span style={{ fontSize: "0.75rem", fontWeight: 800, padding: "0.3rem 0.8rem", background: auth?.role === "ADMIN" ? "rgba(234, 179, 8, 0.1)" : "rgba(6, 182, 212, 0.1)", color: auth?.role === "ADMIN" ? "var(--gold)" : "var(--cyan)", border: auth?.role === "ADMIN" ? "1px solid var(--gold-glow)" : "1px solid var(--cyan-glow)", borderRadius: "6px", letterSpacing: "1px" }}>
                   {auth?.role === "ADMIN" ? "FULL ACCESS" : "STANDARD"}
                 </span>
               </div>
