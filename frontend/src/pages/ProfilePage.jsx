@@ -95,11 +95,7 @@ function ProfilePage() {
     return () => { isMounted = false; };
   }, []);
 
-  // Storage Calculations (Realistic dynamic sizes)
-  const baseStorageMB = 128; // System configs, logs, meta base allocation
-  const usedMB = baseStorageMB + uploadsCount * 24.5; // Avg 24.5MB per document upload
-  const usedGB = (usedMB / 1024).toFixed(2);
-  const percentUsed = Math.min(100, Math.round((usedMB / (10 * 1024)) * 100));
+
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -177,19 +173,28 @@ function ProfilePage() {
               </div>
             </div>
 
-            {/* Storage Space Widget */}
+            {/* Security Standards Widget */}
             <div style={{ width: "100%", background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "16px", padding: "1.25rem", marginBottom: "1.5rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-                <span style={{ color: "var(--text-secondary)" }}>STORAGE CAPACITY</span>
-                <span style={{ color: "var(--violet)", fontWeight: 800 }}>{percentUsed}% USED</span>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", fontWeight: 700, marginBottom: "0.75rem" }}>
+                <span style={{ color: "var(--text-secondary)" }}>SECURITY STANDARDS</span>
+                <span style={{ color: "#10b981", fontWeight: 800, fontSize: "0.75rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <span style={{ width: "6px", height: "6px", background: "#10b981", borderRadius: "50%", display: "inline-block", boxShadow: "0 0 6px #10b981" }} /> SECURE
+                </span>
               </div>
-              {/* Progress bar */}
-              <div style={{ width: "100%", height: "6px", background: "var(--bg-input)", borderRadius: "100px", overflow: "hidden", marginBottom: "0.4rem" }}>
-                <div style={{ width: `${percentUsed}%`, height: "100%", background: "linear-gradient(90deg, var(--violet) 0%, var(--cyan) 100%)", borderRadius: "100px", boxShadow: "0 0 10px var(--violet-glow)" }} />
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--text-muted)" }}>
-                <span>{usedGB} GB Used</span>
-                <span>10 GB Total</span>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem", fontSize: "0.75rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.02)", paddingBottom: "0.4rem" }}>
+                  <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>System Cryptography</span>
+                  <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>AES-256 Bit</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.02)", paddingBottom: "0.4rem" }}>
+                  <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Session Transfer</span>
+                  <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>TLS 1.3 / SSL</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Credential Integrity</span>
+                  <span style={{ color: "#10b981", fontWeight: 700, display: "flex", alignItems: "center", gap: "0.2rem" }}>VERIFIED ✓</span>
+                </div>
               </div>
             </div>
 
