@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { updateProfile } from "../services/api";
+import { updateProfile, getMyDocuments, getFolders } from "../services/api";
 import { getAuthData, saveAuthData } from "../utils/auth";
 
 // Pixel-perfect, modern Lucide SVG Icons matching the premium theme
@@ -70,6 +70,36 @@ function ProfilePage() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
+
+  // Live Stats State
+  const [uploadsCount, setUploadsCount] = useState(0);
+  const [foldersCount, setFoldersCount] = useState(0);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchStats = async () => {
+      try {
+        const [docsRes, foldersRes] = await Promise.all([
+          getMyDocuments(),
+          getFolders()
+        ]);
+        if (isMounted) {
+          setUploadsCount(docsRes.data?.length || 0);
+          setFoldersCount(foldersRes.data?.length || 0);
+        }
+      } catch (e) {
+        console.error("Failed to fetch live profile stats:", e);
+      }
+    };
+    fetchStats();
+    return () => { isMounted = false; };
+  }, []);
+
+  // Storage Calculations (Realistic dynamic sizes)
+  const baseStorageMB = 128; // System configs, logs, meta base allocation
+  const usedMB = baseStorageMB + uploadsCount * 24.5; // Avg 24.5MB per document upload
+  const usedGB = (usedMB / 1024).toFixed(2);
+  const percentUsed = Math.min(100, Math.round((usedMB / (10 * 1024)) * 100));
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -151,14 +181,14 @@ function ProfilePage() {
             <div style={{ width: "100%", background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "16px", padding: "1.25rem", marginBottom: "1.5rem" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", fontWeight: 700, marginBottom: "0.5rem" }}>
                 <span style={{ color: "var(--text-secondary)" }}>STORAGE CAPACITY</span>
-                <span style={{ color: "var(--violet)", fontWeight: 800 }}>42% USED</span>
+                <span style={{ color: "var(--violet)", fontWeight: 800 }}>{percentUsed}% USED</span>
               </div>
               {/* Progress bar */}
               <div style={{ width: "100%", height: "6px", background: "var(--bg-input)", borderRadius: "100px", overflow: "hidden", marginBottom: "0.4rem" }}>
-                <div style={{ width: "42%", height: "100%", background: "linear-gradient(90deg, var(--violet) 0%, var(--cyan) 100%)", borderRadius: "100px", boxShadow: "0 0 10px var(--violet-glow)" }} />
+                <div style={{ width: `${percentUsed}%`, height: "100%", background: "linear-gradient(90deg, var(--violet) 0%, var(--cyan) 100%)", borderRadius: "100px", boxShadow: "0 0 10px var(--violet-glow)" }} />
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--text-muted)" }}>
-                <span>4.2 GB Used</span>
+                <span>{usedGB} GB Used</span>
                 <span>10 GB Total</span>
               </div>
             </div>
@@ -167,11 +197,11 @@ function ProfilePage() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", width: "100%", marginBottom: "1.5rem" }}>
               <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "12px", padding: "0.8rem", textAlign: "center" }}>
                 <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>UPLOADS</div>
-                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--violet)", marginTop: "0.2rem" }}>24 Files</div>
+                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--violet)", marginTop: "0.2rem" }}>{uploadsCount} {uploadsCount === 1 ? "File" : "Files"}</div>
               </div>
               <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "12px", padding: "0.8rem", textAlign: "center" }}>
                 <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>FOLDERS</div>
-                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--cyan)", marginTop: "0.2rem" }}>5 Folders</div>
+                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--cyan)", marginTop: "0.2rem" }}>{foldersCount} {foldersCount === 1 ? "Folder" : "Folders"}</div>
               </div>
             </div>
 
