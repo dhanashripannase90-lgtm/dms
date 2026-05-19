@@ -107,10 +107,10 @@ function Navbar() {
         </button>
         
         {/* Mobile controls */}
-        <button className="mobile-menu-btn" onClick={toggle} style={{ display: "flex", alignItems: "center", justifyContent: "center", border: "none", background: "none", cursor: "pointer" }} aria-label="Toggle theme">
+        <button className="mobile-menu-btn" onClick={toggle} aria-label="Toggle theme">
           {theme === "dark" ? <SunIcon color="var(--violet)" size={20} /> : <MoonIcon color="var(--violet)" size={20} />}
         </button>
-        <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)} style={{ display: "flex", alignItems: "center", justifyContent: "center", border: "none", background: "none", cursor: "pointer" }}>
+        <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <XCloseIcon size={22} color="var(--text-primary)" /> : <MenuIcon size={22} color="var(--text-primary)" />}
         </button>
       </div>

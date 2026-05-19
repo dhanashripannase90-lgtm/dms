@@ -102,7 +102,7 @@ function ProfilePage() {
   return (
     <div className="page-shell animate-fade" style={{ background: "radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, rgba(5, 5, 10, 0) 50%), var(--bg)" }}>
       <Navbar />
-      <div className="page-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "9rem 2rem 4rem" }}>
+      <div className="page-content" style={{ maxWidth: "1200px", margin: "0 auto", paddingTop: "11rem", paddingBottom: "4rem", paddingLeft: "2rem", paddingRight: "2rem" }}>
         
         {/* Page Header */}
         <div style={{ marginBottom: "3.5rem", textAlign: "center" }} className="animate-slide-up">
