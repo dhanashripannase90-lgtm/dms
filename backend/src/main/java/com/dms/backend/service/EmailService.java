@@ -63,7 +63,7 @@ public class EmailService {
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("SMTP ERROR: " + e.getMessage());
+            throw new com.dms.backend.exception.BadRequestException("SMTP ERROR: " + e.getMessage());
         }
     }
 }
