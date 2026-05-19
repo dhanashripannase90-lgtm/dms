@@ -147,7 +147,7 @@ function ProfilePage() {
         <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "2.5rem", alignItems: "stretch" }} className="profile-grid">
 
           {/* LEFT COLUMN: PREMIUM USER CARD */}
-          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", height: "100%", justifyContent: "space-between" }}>
+          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", alignSelf: "start", width: "100%" }}>
 
             {/* Status indicator */}
             <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "100px", zIndex: 10 }}>
@@ -155,17 +155,17 @@ function ProfilePage() {
               <span style={{ fontSize: "0.75rem", color: "#10b981", fontWeight: 700, textTransform: "uppercase" }}>Online</span>
             </div>
 
-            {/* Avatar & Name container to keep them grouped at the top */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "1rem" }}>
+            {/* Avatar & Name container */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "0.5rem" }}>
               {/* Glowing Avatar circle */}
-              <div style={{ position: "relative", marginBottom: "2rem" }}>
+              <div style={{ position: "relative", marginBottom: "1.25rem" }}>
                 <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", opacity: 0.35, filter: "blur(8px)" }} />
                 <div style={{ width: "130px", height: "130px", fontSize: "3rem", background: "linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, position: "relative", border: "4px solid var(--bg-surface)", boxShadow: "0 10px 30px rgba(139, 92, 246, 0.4)" }}>
                   {initials}
                 </div>
               </div>
 
-              <div style={{ textAlign: "center", width: "100%", marginBottom: "1.5rem" }}>
+              <div style={{ textAlign: "center", width: "100%", marginBottom: "1.25rem" }}>
                 <h3 style={{ fontSize: "1.45rem", fontWeight: 800, margin: "0 0 0.4rem 0", color: "var(--text-primary)" }}>{name}</h3>
                 <span className="badge badge-violet" style={{ fontSize: "0.75rem", padding: "0.35rem 1.2rem", border: "1px solid var(--violet-glow)", letterSpacing: "1.5px", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
                   <KeyIcon size={12} color="var(--violet)" /> {auth?.role}
@@ -173,10 +173,8 @@ function ProfilePage() {
               </div>
             </div>
 
-
-
             {/* Quick Stats Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", width: "100%", marginBottom: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", width: "100%", marginBottom: "1.25rem" }}>
               <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "12px", padding: "0.8rem", textAlign: "center" }}>
                 <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>UPLOADS</div>
                 <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--violet)", marginTop: "0.2rem" }}>{uploadsCount} {uploadsCount === 1 ? "File" : "Files"}</div>
@@ -188,7 +186,7 @@ function ProfilePage() {
             </div>
 
             {/* Account Details list at the bottom */}
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "auto" }}>
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "0" }}>
               <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", alignItems: "center" }}>
                 <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>ACCOUNT ID</span>
                 <span style={{ fontSize: "0.9rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace", textAlign: "right" }}>#{auth?.id || "N/A"}</span>
