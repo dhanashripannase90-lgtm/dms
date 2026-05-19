@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
     List<Document> findByUploadedBy(User user);
 
+    List<Document> findByApprovedBy(User user);
+
     List<Document> findByFileNameContainingIgnoreCase(String fileName);
 
     List<Document> findByCategoryIgnoreCase(String category);
