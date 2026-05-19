@@ -147,7 +147,7 @@ function ProfilePage() {
         <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "2.5rem", alignItems: "stretch" }} className="profile-grid">
 
           {/* LEFT COLUMN: PREMIUM USER CARD */}
-          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", alignSelf: "start", width: "100%" }}>
+          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", height: "100%", width: "100%" }}>
 
             {/* Status indicator */}
             <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "100px", zIndex: 10 }}>
@@ -174,7 +174,7 @@ function ProfilePage() {
             </div>
 
             {/* Quick Stats Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", width: "100%", marginBottom: "1.25rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", width: "100%", marginTop: "auto", marginBottom: "auto", padding: "1.5rem 0" }}>
               <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "12px", padding: "0.8rem", textAlign: "center" }}>
                 <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>UPLOADS</div>
                 <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--violet)", marginTop: "0.2rem" }}>{uploadsCount} {uploadsCount === 1 ? "File" : "Files"}</div>
