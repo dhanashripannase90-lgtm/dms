@@ -53,6 +53,11 @@ public class EmailService {
         }
 
         try {
+            if (resendApiKey == null || resendApiKey.trim().isEmpty()) {
+                System.err.println("RESEND_API_KEY is missing! Cannot send email to " + to);
+                return;
+            }
+
             // Must use onboarding@resend.dev unless a custom domain is verified in Resend.
             String jsonPayload = String.format(
                 "{\"from\": \"DMS Portal <onboarding@resend.dev>\", \"to\": [\"%s\"], \"subject\": \"%s\", \"html\": \"%s\"}",
