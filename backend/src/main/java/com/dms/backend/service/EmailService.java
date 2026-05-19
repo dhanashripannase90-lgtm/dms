@@ -19,7 +19,7 @@ public class EmailService {
         String content;
 
         if ("REGISTER".equals(purpose)) {
-            subject = "🔑 Complete Your DMS Portal Registration";
+            subject = "Complete Your DMS Portal Registration";
             content = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; color: #1a202c;\">"
                     +
                     "  <div style=\"text-align: center; margin-bottom: 24px;\">" +
@@ -41,7 +41,7 @@ public class EmailService {
                     + Year.now().getValue() + " DMS Portal. Protected by cryptographic security.</p>" +
                     "</div>";
         } else {
-            subject = "🔒 Reset Your DMS Portal Password";
+            subject = "Reset Your DMS Portal Password";
             content = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; color: #1a202c;\">"
                     +
                     "  <div style=\"text-align: center; margin-bottom: 24px;\">" +
