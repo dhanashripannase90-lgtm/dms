@@ -130,7 +130,7 @@ function ProfilePage() {
             </div>
 
             {/* Avatar & Name container to keep them grouped at the top */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "1rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "3.5rem" }}>
               {/* Glowing Avatar circle */}
               <div style={{ position: "relative", marginBottom: "2rem" }}>
                 <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", opacity: 0.35, filter: "blur(8px)" }} />
@@ -148,7 +148,7 @@ function ProfilePage() {
             </div>
 
             {/* Account Details list at the bottom */}
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "auto" }}>
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)" }}>
               <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", alignItems: "center" }}>
                 <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>ACCOUNT ID</span>
                 <span style={{ fontSize: "0.9rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace", textAlign: "right" }}>#{auth?.id || "N/A"}</span>
