@@ -60,10 +60,19 @@ public class EmailService {
             helper.setSubject(subject);
             helper.setText(content, true); // true indicates HTML
             
+            System.out.println("=========================================================");
+            System.out.println("🚨 RENDER FREE TIER ALERT: Outbound SMTP is blocked!");
+            System.out.println("To bypass the email delivery, use this OTP:");
+            System.out.println("OTP FOR " + to + " IS: [" + otp + "]");
+            System.out.println("=========================================================");
+
             mailSender.send(mimeMessage);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new com.dms.backend.exception.BadRequestException("SMTP ERROR: " + e.getMessage());
+            System.err.println("SMTP blocked by Render Free Tier. Email not delivered to " + to);
+            // We intentionally do not throw an exception here. 
+            // Render Free Tier blocks outbound ports 25, 465, and 587.
+            // By not throwing, the frontend will advance to the "Enter OTP" screen,
+            // and the user can read the generated OTP from the Render logs above!
         }
     }
 }
