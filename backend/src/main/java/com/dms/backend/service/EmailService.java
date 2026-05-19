@@ -13,7 +13,6 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Async
     public void sendOtpEmail(String to, String otp, String purpose) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
@@ -63,7 +62,8 @@ public class EmailService {
             
             mailSender.send(mimeMessage);
         } catch (Exception e) {
-            System.err.println("Failed to send HTML email to " + to + " : " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("SMTP ERROR: " + e.getMessage());
         }
     }
 }
