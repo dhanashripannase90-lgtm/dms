@@ -121,7 +121,7 @@ function ProfilePage() {
         <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "2.5rem", alignItems: "stretch" }} className="profile-grid">
 
           {/* LEFT COLUMN: PREMIUM USER CARD */}
-          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", alignSelf: "start", width: "100%" }}>
+          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", height: "100%", justifyContent: "space-between" }}>
 
             {/* Status indicator */}
             <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "100px", zIndex: 10 }}>
@@ -139,7 +139,7 @@ function ProfilePage() {
                 </div>
               </div>
 
-              <div style={{ textAlign: "center", width: "100%", marginBottom: "0.5rem" }}>
+              <div style={{ textAlign: "center", width: "100%", marginBottom: "1.5rem" }}>
                 <h3 style={{ fontSize: "1.45rem", fontWeight: 800, margin: "0 0 0.4rem 0", color: "var(--text-primary)" }}>{name}</h3>
                 <span className="badge badge-violet" style={{ fontSize: "0.75rem", padding: "0.35rem 1.2rem", border: "1px solid var(--violet-glow)", letterSpacing: "1.5px", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
                   <KeyIcon size={12} color="var(--violet)" /> {auth?.role}
@@ -147,8 +147,36 @@ function ProfilePage() {
               </div>
             </div>
 
+            {/* Storage Space Widget */}
+            <div style={{ width: "100%", background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "16px", padding: "1.25rem", marginBottom: "1.5rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", fontWeight: 700, marginBottom: "0.5rem" }}>
+                <span style={{ color: "var(--text-secondary)" }}>STORAGE CAPACITY</span>
+                <span style={{ color: "var(--violet)", fontWeight: 800 }}>42% USED</span>
+              </div>
+              {/* Progress bar */}
+              <div style={{ width: "100%", height: "6px", background: "var(--bg-input)", borderRadius: "100px", overflow: "hidden", marginBottom: "0.4rem" }}>
+                <div style={{ width: "42%", height: "100%", background: "linear-gradient(90deg, var(--violet) 0%, var(--cyan) 100%)", borderRadius: "100px", boxShadow: "0 0 10px var(--violet-glow)" }} />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--text-muted)" }}>
+                <span>4.2 GB Used</span>
+                <span>10 GB Total</span>
+              </div>
+            </div>
+
+            {/* Quick Stats Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", width: "100%", marginBottom: "1.5rem" }}>
+              <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "12px", padding: "0.8rem", textAlign: "center" }}>
+                <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>UPLOADS</div>
+                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--violet)", marginTop: "0.2rem" }}>24 Files</div>
+              </div>
+              <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid var(--border)", borderRadius: "12px", padding: "0.8rem", textAlign: "center" }}>
+                <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>FOLDERS</div>
+                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--cyan)", marginTop: "0.2rem" }}>5 Folders</div>
+              </div>
+            </div>
+
             {/* Account Details list at the bottom */}
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "2rem" }}>
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "auto" }}>
               <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", alignItems: "center" }}>
                 <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>ACCOUNT ID</span>
                 <span style={{ fontSize: "0.9rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace", textAlign: "right" }}>#{auth?.id || "N/A"}</span>
