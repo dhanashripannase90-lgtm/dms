@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { login } from "../services/api";
 import { saveAuthData } from "../utils/auth";
 import { useTheme } from "../context/ThemeContext";
+import DmsLogo from "../components/DmsLogo";
 
 // Pixel-perfect, modern Lucide SVG Icons matching the premium theme
 const MailIcon = ({ size = 20, color = "currentColor" }) => (
@@ -47,19 +48,7 @@ const MoonIcon = ({ size = 20, color = "currentColor" }) => (
   </svg>
 );
 
-const LogoIcon = ({ size = 32 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" style={{ filter: "drop-shadow(0 0 8px rgba(139, 92, 246, 0.5))", flexShrink: 0 }}>
-    <defs>
-      <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#8b5cf6" />
-        <stop offset="100%" stopColor="#06b6d4" />
-      </linearGradient>
-    </defs>
-    <path d="M12 2L2 7l10 5 10-5-10-5Z" fill="url(#logoGrad)" />
-    <path d="M2 17l10 5 10-5" stroke="url(#logoGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M2 12l10 5 10-5" stroke="url(#logoGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
-  </svg>
-);
+
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -100,9 +89,7 @@ function LoginPage() {
 
       <div className="glass-panel animate-slide-up" style={{ width: "100%", maxWidth: "450px", padding: "3rem", position: "relative", zIndex: 10 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "2.5rem" }}>
-          <div style={{ marginBottom: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <LogoIcon size={56} />
-          </div>
+          <DmsLogo size={56} />
           <h1 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: "0.5rem", letterSpacing: "-1px" }}>Welcome Back</h1>
           <p style={{ color: "var(--text-secondary)" }}>Securely access your document vault.</p>
         </div>
@@ -124,7 +111,7 @@ function LoginPage() {
                 required value={form.email} onChange={set("email")} style={{ paddingLeft: "3rem" }} />
             </div>
           </div>
-          
+
           <div>
             <label className="field-label" style={{ marginLeft: "0.5rem" }}>Password</label>
             <div style={{ position: "relative" }}>
@@ -143,7 +130,7 @@ function LoginPage() {
               <Link to="/forgot-password" style={{ color: "var(--violet)", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>Forgot Password?</Link>
             </div>
           </div>
-          
+
           <button className="btn-premium btn-full" type="submit" disabled={loading} style={{ padding: "1rem", fontSize: "1rem", marginTop: "1rem", borderRadius: "100px" }}>
             {loading ? <><span className="spinner" /> Signing in...</> : "Sign In →"}
           </button>
