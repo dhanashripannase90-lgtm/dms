@@ -10,7 +10,10 @@ import {
   UserIcon, 
   PlusIcon, 
   InboxEmptyIcon, 
-  FileIcon 
+  FileIcon,
+  UploadIcon,
+  CheckIcon,
+  ClockIcon
 } from "../components/Icons";
 
 const CAT_BADGE = { GENERAL: "badge-gray", FINANCE: "badge-green", LEGAL: "badge-amber", HR: "badge-cyan" };
@@ -30,10 +33,10 @@ function UserDashboardPage() {
   // Premium category color-coded icons
   const getCatIcon = (cat) => {
     switch (cat) {
-      case "FINANCE": return <DollarIcon size={20} color="#10b981" />;
-      case "LEGAL": return <ScaleIcon size={20} color="#f59e0b" />;
-      case "HR": return <UserIcon size={20} color="#06b6d4" />;
-      default: return <FolderIcon size={20} color="var(--violet)" />;
+      case "FINANCE": return <DollarIcon size={24} color="#10b981" />;
+      case "LEGAL": return <ScaleIcon size={24} color="#f59e0b" />;
+      case "HR": return <UserIcon size={24} color="#06b6d4" />;
+      default: return <FolderIcon size={24} color="var(--violet)" />;
     }
   };
 
@@ -85,25 +88,48 @@ function UserDashboardPage() {
         {error && <div className="alert alert-error" style={{ marginBottom: "2rem" }}>{error}</div>}
 
         {/* Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(180px,1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
           <div className="stat-card-premium" style={{ border: "1px solid var(--violet-glow)" }}>
-            <p className="stat-label">TOTAL UPLOADS</p>
-            <p className="stat-value" style={{ color: "var(--violet)" }}>{loading ? "—" : docs.length}</p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <p className="stat-label">TOTAL UPLOADS</p>
+                <p className="stat-value" style={{ fontSize: "2.5rem", color: "var(--violet)" }}>{loading ? "—" : docs.length}</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", background: "var(--bg-input)", borderRadius: "10px", border: "1px solid var(--border)" }}>
+                <UploadIcon size={24} color="var(--violet)" />
+              </div>
+            </div>
           </div>
           <div className="stat-card-premium">
-            <p className="stat-label">APPROVED</p>
-            <p className="stat-value" style={{ color: "#10b981", fontSize: "1.8rem" }}>{loading ? "—" : docs.filter(d => d.status === "APPROVED").length}</p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <p className="stat-label">APPROVED</p>
+                <p className="stat-value" style={{ fontSize: "2.5rem", color: "#10b981" }}>{loading ? "—" : docs.filter(d => d.status === "APPROVED").length}</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", background: "var(--bg-input)", borderRadius: "10px", border: "1px solid var(--border)" }}>
+                <CheckIcon size={24} color="#10b981" />
+              </div>
+            </div>
           </div>
           <div className="stat-card-premium">
-            <p className="stat-label">PENDING</p>
-            <p className="stat-value" style={{ color: "#f59e0b", fontSize: "1.8rem" }}>{loading ? "—" : docs.filter(d => d.status === "PENDING").length}</p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <p className="stat-label">PENDING</p>
+                <p className="stat-value" style={{ fontSize: "2.5rem", color: "#f59e0b" }}>{loading ? "—" : docs.filter(d => d.status === "PENDING").length}</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", background: "var(--bg-input)", borderRadius: "10px", border: "1px solid var(--border)" }}>
+                <ClockIcon size={24} color="#f59e0b" />
+              </div>
+            </div>
           </div>
           {["GENERAL", "FINANCE", "LEGAL", "HR"].map(cat => (
             <div key={cat} className="stat-card-premium">
-              <p className="stat-label">{cat}</p>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-                <p className="stat-value" style={{ fontSize: "1.8rem" }}>{loading ? "—" : docs.filter(d => d.category === cat).length}</p>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", background: "var(--bg-input)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
+                  <p className="stat-label">{cat}</p>
+                  <p className="stat-value" style={{ fontSize: "2.5rem" }}>{loading ? "—" : docs.filter(d => d.category === cat).length}</p>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", background: "var(--bg-input)", borderRadius: "10px", border: "1px solid var(--border)" }}>
                   {getCatIcon(cat)}
                 </div>
               </div>
