@@ -86,7 +86,7 @@ function ProfilePage() {
       const res = await updateProfile({ name, password: password || null });
       const updatedAuth = { ...auth, name: res.data.name };
       saveAuthData(updatedAuth);
-      
+
       setSuccess("Profile updated successfully!");
       setPassword("");
       setConfirmPassword("");
@@ -103,7 +103,7 @@ function ProfilePage() {
     <div className="page-shell animate-fade" style={{ background: "radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, rgba(5, 5, 10, 0) 50%), var(--bg)" }}>
       <Navbar />
       <div className="page-content" style={{ maxWidth: "1200px", margin: "0 auto", paddingTop: "11rem", paddingBottom: "4rem", paddingLeft: "2rem", paddingRight: "2rem" }}>
-        
+
         {/* Page Header */}
         <div style={{ marginBottom: "3.5rem", textAlign: "center" }} className="animate-slide-up">
           <div style={{ display: "inline-flex", alignItems: "center", justifySelf: "center", gap: "0.5rem", padding: "0.5rem 1.25rem", background: "rgba(139, 92, 246, 0.1)", border: "1px solid rgba(139, 92, 246, 0.2)", borderRadius: "100px", color: "var(--violet)", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "1rem" }}>
@@ -119,10 +119,10 @@ function ProfilePage() {
         {error && <div className="alert alert-error animate-fade" style={{ marginBottom: "2rem", boxShadow: "0 4px 20px rgba(239,68,68,0.15)" }}>⚠️ {error}</div>}
 
         <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: "2.5rem", alignItems: "stretch" }} className="profile-grid">
-          
+
           {/* LEFT COLUMN: PREMIUM USER CARD */}
-          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2.5rem", border: "1px solid var(--border-strong)", height: "100%" }}>
-            
+          <div className="glass-panel animate-slide-up" style={{ padding: "2.5rem 2rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid var(--border-strong)", alignSelf: "start", width: "100%" }}>
+
             {/* Status indicator */}
             <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.8rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "100px", zIndex: 10 }}>
               <span style={{ width: "8px", height: "8px", background: "#10b981", borderRadius: "50%", display: "inline-block", boxShadow: "0 0 8px #10b981" }} />
@@ -130,7 +130,7 @@ function ProfilePage() {
             </div>
 
             {/* Avatar & Name container to keep them grouped at the top */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "3.5rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "1rem" }}>
               {/* Glowing Avatar circle */}
               <div style={{ position: "relative", marginBottom: "2rem" }}>
                 <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", opacity: 0.35, filter: "blur(8px)" }} />
@@ -139,7 +139,7 @@ function ProfilePage() {
                 </div>
               </div>
 
-              <div style={{ textAlign: "center", width: "100%", marginBottom: "2.5rem" }}>
+              <div style={{ textAlign: "center", width: "100%", marginBottom: "0.5rem" }}>
                 <h3 style={{ fontSize: "1.45rem", fontWeight: 800, margin: "0 0 0.4rem 0", color: "var(--text-primary)" }}>{name}</h3>
                 <span className="badge badge-violet" style={{ fontSize: "0.75rem", padding: "0.35rem 1.2rem", border: "1px solid var(--violet-glow)", letterSpacing: "1.5px", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
                   <KeyIcon size={12} color="var(--violet)" /> {auth?.role}
@@ -148,7 +148,7 @@ function ProfilePage() {
             </div>
 
             {/* Account Details list at the bottom */}
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)" }}>
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem", background: "rgba(255,255,255,0.02)", padding: "1.5rem", borderRadius: "16px", border: "1px solid var(--border)", marginTop: "2rem" }}>
               <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", alignItems: "center" }}>
                 <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.5px" }}>ACCOUNT ID</span>
                 <span style={{ fontSize: "0.9rem", color: "var(--text-primary)", fontWeight: 700, fontFamily: "monospace", textAlign: "right" }}>#{auth?.id || "N/A"}</span>
@@ -170,15 +170,15 @@ function ProfilePage() {
 
           {/* RIGHT COLUMN: PREMIUM EDIT FORM */}
           <div className="glass-panel animate-slide-up" style={{ padding: "3rem", border: "1px solid var(--border-strong)", position: "relative" }}>
-            
+
             <form onSubmit={handleUpdate} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-              
+
               {/* Profile details section */}
               <div>
                 <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <UserIcon size={20} color="var(--violet)" /> Profile Information
                 </h3>
-                
+
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", marginBottom: "1.5rem" }}>
                   <div>
                     <label className="field-label">System Username / Email</label>
